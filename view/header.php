@@ -6,8 +6,23 @@
     <link href="../style/myCss.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../style/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function showHint(str) {
+            if (str.length==0) {
+                document.getElementById("txtHint").innerHTML="";
+                return;
+            }
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function() {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","../control/ajax.php?userName="+str,true);
+            xmlhttp.send();
+        }
+    </script>
     <script type="text/javascript">
-
         function GetClock(){
             tday  =new Array("Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi");
             d = new Date();

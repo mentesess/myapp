@@ -15,7 +15,6 @@ class DbCon {
     private $dbCon;
     function __construct()
     {
-        echo("DBCON");
         $conString = sprintf("%s %s %s %s",DbCon::HOST,DbCon::PORT,DbCon::DBNAME,DbCon::CREDENTIALS);
         $this->dbCon=pg_connect($conString)or die("Could not connect\n");
     }

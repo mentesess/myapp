@@ -14,19 +14,6 @@ echo <<<EOF
     <meta charset="utf-8"/>
     <link href="../style/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <script>
-function showHint(str) {
-  if (str.length==0) {
-    document.getElementById("txtHint").innerHTML="";
-    return;
-  }
-  var xmlhttp=new XMLHttpRequest();
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-    }
-  }
-  xmlhttp.open("GET","gethint.php?q="+str,true);
-  xmlhttp.send();
 }
 </script>
 </head>
@@ -46,25 +33,18 @@ if($_SERVER['REQUEST_METHOD']==POST&&isset($_POST['userName'])){
     $surname = test_input($_POST['surname']);
     $salary = test_input($_POST['salary']);
     if(!empty($userName)&&!empty($name)&&!empty($surname)&&!empty($salary)){
-        checkUserName();
         $dbEmp->addEmployee($userName,$name,$surname,$salary);
         $dbEmp->getEmployee();
         unset($dbCon);
    }
     unset($_POST['userName']);
 }else if($_SERVER['REQUEST_METHOD']==GET){
-    exit;
+    checkUserName();
+
 }
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-}
-function checkUserName(){
-    $userName = $_REQUEST['userName'];
-    global $dbEmp;
-    $userNameArray=$dbEmp->getEmployee();
-    echo($userNameArray['1']);
-
 }
